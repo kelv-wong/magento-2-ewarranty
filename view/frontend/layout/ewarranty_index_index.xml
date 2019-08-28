@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Developersspot
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Developersspot.com license 
+ * that is available through the world-wide-web at this URL:
+ * https://developersspot.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to ypgrade this extension to newer
+ * version in the future.
+ *
+ * @category	Developersspot 
+ * @package 	Developersspot_Ewarranty
+ * @copyright 	Copyright (c) 2019 Developersspot (http://developersspot.com)
+ * @license 	https://developersspot.com/LICENSE.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="Developersspot_Ewarranty::css/ewarranty.css" />
+		<script src="Developersspot_Ewarranty::js/ewarranty.js" />
+	</head>
+	<body>
+		<referenceContainer name="content">
+	        <block class="Developersspot\Ewarranty\Block\Index" name="ewarranty" template="Developersspot_Ewarranty::index.phtml" />
+	    </referenceContainer>
+	</body>
+</page>

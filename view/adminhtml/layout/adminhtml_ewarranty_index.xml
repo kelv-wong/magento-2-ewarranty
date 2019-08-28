@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Developersspot
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Developersspot.com license 
+ * that is available through the world-wide-web at this URL:
+ * https://developersspot.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to ypgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Developersspot 
+ * @package     Developersspot_Ewarranty
+ * @copyright   Copyright (c) 2019 Developersspot (http://developersspot.com)
+ * @license     https://developersspot.com/LICENSE.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Developersspot\Ewarranty\Block\Adminhtml\Ewarranty" name="mageplaza_post_grid">
+                <block class="Magento\Backend\Block\Widget\Grid" name="mageplaza_post_grid.grid" as="grid">
+                    <arguments>
+                        <argument name="ewarranty_id" xsi:type="string">ewarranty_id</argument>
+                        <argument name="dataSource" xsi:type="object">Developersspot\Ewarranty\Model\ResourceModel\Ewarranty\Collection</argument>
+                        <argument name="default_sort" xsi:type="string">ewarranty_id</argument>
+                        <argument name="default_dir" xsi:type="string">ASC</argument>
+                        <argument name="save_parameters_in_session" xsi:type="string">1</argument>
+                    </arguments>
+                    <block class="Magento\Backend\Block\Widget\Grid\Massaction" name="developersspot.ewarranty.massaction" as="grid.massaction">
+                        <arguments>
+                            <argument name="massaction_id_field" xsi:type="string">ewarranty_id</argument>
+                            <argument name="form_field_name" xsi:type="string">ids</argument>
+                            <argument name="use_select_all" xsi:type="string">1</argument>
+                            <argument name="options" xsi:type="array">
+                                <item name="disable" xsi:type="array">
+                                    <item name="label" xsi:type="string" translate="true">Delete</item>
+                                    <item name="url" xsi:type="string">*/*/massDelete</item>
+                                </item>
+                            </argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="mageplaza_post_grid.grid.columnSet" as="grid.columnSet">
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="request_id">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Request ID</argument>
+                                <argument name="index" xsi:type="string">ewarranty_id</argument>
+                                <argument name="type" xsi:type="string">integer</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="invoice_number">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Invoice Number</argument>
+                                <argument name="index" xsi:type="string">invoice_number</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="name">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Name</argument>
+                                <argument name="index" xsi:type="string">customer_name</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="email">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Email</argument>
+                                <argument name="index" xsi:type="string">customer_email</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="mobile">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Mobile</argument>
+                                <argument name="index" xsi:type="string">customer_mobile</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="dob">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">DOB</argument>
+                                <argument name="index" xsi:type="string">customer_dob</argument>
+                                <argument name="type" xsi:type="string">date</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="address">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Address</argument>
+                                <argument name="index" xsi:type="string">customer_address</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="zipcode">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Zipcode</argument>
+                                <argument name="index" xsi:type="string">postal_code</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="date_of_purchase">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Purchased on</argument>
+                                <argument name="index" xsi:type="string">date_of_purchase</argument>
+                                <argument name="type" xsi:type="string">date</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="date_of_deliver">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Delivered on</argument>
+                                <argument name="index" xsi:type="string">date_of_deliver</argument>
+                                <argument name="type" xsi:type="string">date</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="model_name">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Model</argument>
+                                <argument name="index" xsi:type="string">model_name</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="purchase_experience">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Purchase Experience</argument>
+                                <argument name="index" xsi:type="string">purchase_experience</argument>
+                                <argument name="type" xsi:type="string">options</argument>
+                                <argument name="options" xsi:type="options" model="Developersspot\Ewarranty\Model\System\Config\Experience"/>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="delivery_experience">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Delivery Experience</argument>
+                                <argument name="index" xsi:type="string">delivery_experience</argument>
+                                <argument name="type" xsi:type="string">options</argument>
+                                <argument name="options" xsi:type="options" model="Developersspot\Ewarranty\Model\System\Config\Experience"/>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="message">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Message</argument>
+                                <argument name="index" xsi:type="string">message</argument>
+                                <argument name="type" xsi:type="string">text</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Backend\Block\Widget\Grid\Column" as="created_at">
+                            <arguments>
+                                <argument name="header" xsi:type="string" translate="true">Created on</argument>
+                                <argument name="index" xsi:type="string">created_at</argument>
+                                <argument name="type" xsi:type="string">date</argument>
+                                <argument name="column_css_class" xsi:type="string">col-id</argument>
+                                <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
