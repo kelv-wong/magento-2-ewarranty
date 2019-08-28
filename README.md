@@ -4,7 +4,7 @@ E-warranty page for magento 2. Basic bootstrap form element used.
 1. Go to Magento 2 root folder
 2. Enter below command to install E-Warranty module
    ````bash
-   composer require developersspot/e-warranty
+   composer require developersspot/magento-2-ewarranty
    ````
 3. Enter following command to enable the module
 
