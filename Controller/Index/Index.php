@@ -24,7 +24,13 @@ namespace Developersspot\Ewarranty\Controller\Index;
 use Developersspot\Ewarranty\Model\Ewarranty;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\Mail\Template\TransportBuilder;
+use Magento\Framework\Translate\Inline\StateInterface;
 use Magento\Framework\View\Result\PageFactory;
+use Magento\Store\Model\ScopeInterface;
+use Magento\Store\Model\StoreManagerInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * 
@@ -34,13 +40,32 @@ class Index extends Action
 	protected $_pageFactory;
 
 	protected $_ewarrantyFactory;
-	
+
+	protected $_inlineTranslation;
+
+	protected $_transportBuilder;
+
+	protected $_scopeConfig;
+
+	protected $storeManager;
+
 	public function __construct(
 		Context $context,
-		PageFactory $pageFactory
+		PageFactory $pageFactory,
+		ScopeConfigInterface $scopeConfig,
+		StateInterface $inlineTranslation,
+		TransportBuilder $transportBuilder,
+		LoggerInterface $loggerInterface,
+		StoreManagerInterface $storeManager
 	)
 	{
 		$this->_pageFactory = $pageFactory;
+		$this->_scopeConfig = $scopeConfig;
+		$this->_inlineTranslation = $inlineTranslation;
+		$this->_transportBuilder = $transportBuilder;
+		$this->_logLoggerInterface = $loggerInterface;
+		$this->storeManager = $storeManager;
+
 		return parent::__construct($context);
 	}
 
@@ -79,6 +104,8 @@ class Index extends Action
                 // save the data
                 $model->save();
 
+                $this->sendEmailToCustomer($post);
+
                 $this->messageManager->addSuccess(__('E-Warranty requested successfully.'));
 				return $resultRedirect->setPath('*/');
 
@@ -92,4 +119,57 @@ class Index extends Action
         $resultPage->getConfig()->getTitle()->set((__('E-Warranty')));
         return $resultPage;	
 	}
+
+	protected function getStoreName()
+    {
+        return $this->_scopeConfig->getValue(
+            'trans_email/ident_general/name',
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+	protected function getStoreEmail()
+    {
+        return $this->_scopeConfig->getValue(
+            'trans_email/ident_general/email',
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+	protected function sendEmailToCustomer($post)
+    {
+        try
+        {
+            // Send Mail
+            $this->_inlineTranslation->suspend();
+                         
+            $sender = [
+                'name' => $this->getStoreName(),
+                'email' => $this->getStoreEmail()
+            ];
+             
+            $sentToName = $post['customer_name'];
+            $sentToEmail = $post['customer_email'];
+             
+            $transport = $this->_transportBuilder
+            ->setTemplateIdentifier('ewarranty_customer_email_template')
+            ->setTemplateVars([])
+            ->setTemplateOptions(
+                [
+                    'area' => 'frontend',
+                    'store' => $this->storeManager->getStore()->getId()
+                ]
+            )
+            ->setFromByScope($sender)
+            ->addTo($sentToEmail, $sentToName)
+            ->getTransport();
+             
+            $transport->sendMessage();
+             
+            $this->_inlineTranslation->resume();
+                 
+        } catch(\Exception $e){
+            $this->_logLoggerInterface->debug($e->getMessage());
+        }
+    }
 }

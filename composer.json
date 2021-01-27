@@ -2,7 +2,7 @@
     "name": "developersspot/magento-2-ewarranty",
     "description": "E-Warranty page for magento 2",
     "type": "magento2-module",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "authors": [
         {
