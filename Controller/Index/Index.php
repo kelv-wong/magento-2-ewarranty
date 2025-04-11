@@ -59,6 +59,15 @@ class Index extends Action
 		StoreManagerInterface $storeManager
 	)
 	{
+
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$urlInterface = $objectManager->get('\Magento\Framework\UrlInterface');
+		$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+		if(!$customerSession->isLoggedIn()) {
+		        $customerSession->setAfterAuthUrl($urlInterface->getCurrentUrl());
+		        $customerSession->authenticate();
+		}
+		
 		$this->_pageFactory = $pageFactory;
 		$this->_scopeConfig = $scopeConfig;
 		$this->_inlineTranslation = $inlineTranslation;
